@@ -2,4 +2,21 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome 
+  if !user
+    //- create login form
+    form(action='/login' method='POST')
+      div
+        label(for='email') Email:
+        input#email(type='text' name='email')
+      div
+        label(for='password') Password:
+        input#password(type='password' name='password')
+      div
+        input(type='submit' value='Log In')
+    //- create a link to the sign up page
+    a(href='/sign-up') Sign Up
+  else 
+    //- process the email into a username
+    p Welcome #{user.email}
+  script(src="/javascripts/index.js") 
