@@ -5,7 +5,7 @@ block content
   p Welcome 
   if !user
     //- create login form
-    form(action='/login' method='POST')
+    form#login-form(action='/login' method='POST')
       div
         label(for='email') Email:
         input#email(type='text' name='email')
@@ -16,7 +16,36 @@ block content
         input(type='submit' value='Log In')
     //- create a link to the sign up page
     a(href='/sign-up') Sign Up
+    ul#messages
+      for message in messages
+        li.message
+          p.message-author Anonymous
+          p.message-content= message.content
+          p.message-date Posted at: ???
+          
   else 
-    //- process the email into a username
-    p Welcome #{user.email}
+    //- create a link to join the club
+    if (user.status === false)
+      a(href='/join-club') Join the Club
+      br
+    //- create a button for a new message
+    br
+    button#new-message-btn Create new message
+    //- create a form for new messages
+    form#new-message-form.hide(action='/new-message' method='POST')
+      div
+        label(for='message') Message:
+        br
+        textarea#message(type='text' name='message')
+      div
+        input(type='submit' value='Send Message')
+      br
+    //- create a list of messages
+    ul#messages
+      for message in messages
+        li.message
+          p.message-author= message.user.email.split('@')[0]
+          p.message-content= message.content
+          p.message-date Posted at: #{message.date}
+
   script(src="/javascripts/index.js") 

@@ -1,0 +1,12 @@
+extends layout 
+
+block content 
+    form(action="/join-club" method="POST")
+        div
+            label(for="passcode") Passcode:
+            input#passcode(type="text" name="passcode")
+        div
+            input(type="submit" value="Join Club")
+        div 
+            a(href="/") Back to login!
+    script(src="/javascripts/join-club.js")
