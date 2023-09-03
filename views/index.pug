@@ -16,12 +16,6 @@ block content
         input(type='submit' value='Log In')
     //- create a link to the sign up page
     a(href='/sign-up') Sign Up
-    ul#messages
-      for message in messages
-        li.message
-          p.message-author Anonymous
-          p.message-content= message.content
-          p.message-date Posted at: ???
           
   else 
     //- create a link to join the club
@@ -40,7 +34,15 @@ block content
       div
         input(type='submit' value='Send Message')
       br
-    //- create a list of messages
+    //- conditionally render messages
+  if (!user || user.status === false)
+    ul#messages
+      for message in messages
+        li.message
+          p.message-author Anonymous
+          p.message-content= message.content
+          p.message-date Posted at: ???
+  else 
     ul#messages
       for message in messages
         li.message
